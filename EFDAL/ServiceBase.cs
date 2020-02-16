@@ -11,6 +11,7 @@ namespace EFDAL
 {
     public class ServiceBase
     {
+        private Repository _Repository = new Repository();
         /// <summary>
         /// 新增資料
         /// </summary>
@@ -23,8 +24,7 @@ namespace EFDAL
             {
                 if (entity == null) { return false; }
 
-                Repository Repository = new Repository();
-                return Repository.Add<T>(entity);
+                return _Repository.Add<T>(entity);
             }
             catch (Exception ex)
             {
@@ -40,8 +40,7 @@ namespace EFDAL
         /// <returns></returns>
         public IQueryable<T> Lookup<T>(System.Linq.Expressions.Expression<Func<T, bool>> filter = null) where T : class
         {
-            Repository Repository = new Repository();
-            return Repository.GetAll<T>(filter);
+            return _Repository.GetAll<T>(filter);
         }
 
         /// <summary>
@@ -50,10 +49,18 @@ namespace EFDAL
         /// <typeparam name="T">方法型別</typeparam>
         /// <param name="entity">類別</param>
         /// <returns></returns>
-        public void Update<T>(T entity) where T : class
+        public bool Update<T>(T entity) where T : class
         {
-            Repository Repository = new Repository();
-            Repository.Update<T>(entity);
+            try
+            {
+                if (entity == null) { return false; }
+                _Repository.Update<T>(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -62,10 +69,18 @@ namespace EFDAL
         /// <typeparam name="T">方法型別</typeparam>
         /// <param name="entity">類別</param>
         /// <returns></returns>
-        public void Delete<T>(T entity) where T : class
+        public bool Delete<T>(T entity) where T : class
         {
-            Repository Repository = new Repository();
-            Repository.Delete<T>(entity);
+            try
+            {
+                if (entity == null) { return false; }
+                _Repository.Delete<T>(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

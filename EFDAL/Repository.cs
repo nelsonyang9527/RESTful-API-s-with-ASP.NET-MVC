@@ -47,13 +47,17 @@ namespace EFDAL
         /// <param name="entity">資料實體模型</param>
         public bool Add<T>(T entity) where T : class
         {
-            if (entity != null)
+            if (entity == null) { return false; }
+            try
             {
                 _context.Set<T>().Add(entity);
                 int result = _context.SaveChanges();
-                return (result >1) ? true : false;
+                return (result >= 1) ? true : false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -61,9 +65,19 @@ namespace EFDAL
         /// </summary>
         /// <typeparam name="T">類別模型</typeparam>
         /// <param name="entity">資料實體模型</param>
-        public void Update<T>(T entity) where T : class
+        public bool Update<T>(T entity) where T : class
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            if(entity == null) { return false; }
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+                int result = _context.SaveChanges();
+                return (result >= 1) ? true : false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -71,13 +85,19 @@ namespace EFDAL
         /// </summary>
         /// <typeparam name="T">類別模型</typeparam>
         /// <param name="entity">資料實體模型</param>
-        public void Delete<T>(T entity) where T : class
+        public bool Delete<T>(T entity) where T : class
         {
-            if (entity != null)
+            if (entity == null) { return false; }
+            try
             {
                 _context.Entry(entity).State = EntityState.Deleted;
+                int result = _context.SaveChanges();
+                return (result >= 1) ? true : false;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
-
     }
 }

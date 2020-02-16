@@ -28,14 +28,14 @@ namespace EFDAL
         /// </summary>
         /// <typeparam name="T">類別模型</typeparam>
         /// <param name="entity">資料實體模型</param>
-        void Update<T>(T entity) where T : class;
+        bool Update<T>(T entity) where T : class;
 
         /// <summary>
         /// 刪除資料
         /// </summary>
         /// <typeparam name="T">類別模型</typeparam>
         /// <param name="entity">資料實體模型</param>
-        void Delete<T>(T entity) where T : class;
+        bool Delete<T>(T entity) where T : class;
 
     }
 }
