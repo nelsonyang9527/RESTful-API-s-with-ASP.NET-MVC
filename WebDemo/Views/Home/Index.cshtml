@@ -1,24 +1,129 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿
+<div class="jumbotron">
+    <h1>RESTful API's with ASP.NET MVC</h1>
 </div>
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <h2>取得客戶資料</h2>
+        <form id="frmGet">
+            <div class="form-group">
+                <label for="CustomerID">客戶代號</label>
+                <input type="text" id="CustomerID" value="ANATR" />
+            </div>
+            <button type="button" class="btn btn-primary" id="btnGet">取得資料</button>
+        </form>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <h2>新增客戶名稱</h2>
+        <from id="frmAdd">
+            <div class="form-group">
+                <label for="ContactName">客戶名稱</label>
+                <input type="text" id="ContactName" />
+            </div>
+            <div class="form-group">
+                <label for="CompanyName">客戶公司名稱</label>
+                <input type="text" id="CompanyName" />
+            </div>
+            <button type="button" class="btn btn-primary" id="bntAdd">新增資料</button>
+        </from>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <h2>修改客戶名稱</h2>
+        <from id="frmUpdate">
+            <div class="form-group">
+                <label for="CustomerID">客戶代號</label>
+                <input type="text" id="CustomerID" value="ANATR" />
+            </div>
+            <div class="form-group">
+                <label for="ContactName">客戶名稱</label>
+                <input type="text" id="ContactName" />
+            </div>
+            <button type="button" class="btn btn-primary" id="btnUpdate">修改資料</button>
+        </from>
+    </div>
+    <div class="col-md-6">
+        <h2>刪除客戶資料</h2>
+        <from id="frmDelete">
+            <div class="form-group">
+                <label for="CustomerID">客戶代號</label>
+                <input type="text" id="CustomerID" value="ANATR" />
+            </div>
+            <button type="button" class="btn btn-primary" id="btnDelete">刪除資料</button>
+        </from>
     </div>
 </div>
+
+<script>
+    $(function () {
+
+        // 取得資料
+        $("#btnGet").on("click", function () {
+            $.ajax({
+                url: "/api/Customers",
+                contentType: "application/json; charset=utf-8",
+                data: {
+                    'CustomerID': $("#frmGet #CustomerID").val()
+                },
+                type: "GET",
+                success: function (data) {
+                    data = JSON.parse(data);
+                    alert(data.ContactName);
+                }
+            });
+        });
+
+        // 新增資料
+        $("#bntAdd").on("click", function () {
+            var jsonData = JSON.stringify({
+                'ContactName': $("#frmAdd #ContactName").val(),
+                'CompanyName': $("#frmAdd #CompanyName").val()
+            });
+            $.ajax({
+                url: "/api/Customers",
+                contentType: "application/json; charset=utf-8",
+                data: jsonData,
+                type: "POST",
+                success: function (data) {
+                    data = JSON.parse(data);
+                    alert((data) ? "新增成功!" : "新增失敗!");
+                }
+            });
+        });
+
+        // 修改資料
+        $("#btnUpdate").on("click", function () {
+            var jsonData = JSON.stringify({
+                'CustomerID': $("#frmUpdate #CustomerID").val(),
+                'ContactName': $("#frmUpdate #ContactName").val()
+            });
+            $.ajax({
+                url: "/api/Customers",
+                contentType: "application/json; charset=utf-8",
+                data: jsonData,
+                type: "PUT",
+                success: function (data) {
+                    data = JSON.parse(data);
+                    alert((data) ? "修改成功!" : "修改失敗!");
+                }
+            });
+        });
+
+        // 刪除資料
+        $("#btnDelete").on("click", function () {
+            $.ajax({
+                url: "/api/Customers",
+                contentType: "application/json; charset=utf-8",
+                data: {
+                    'CustomerID': $("#frmDelete #CustomerID").val()
+                },
+                type: "DELETE",
+                success: function (data) {
+                    data = JSON.parse(data);
+                    alert((data) ? "刪除成功!" : "刪除失敗!");
+                }
+            });
+        });
+
+
+    });
+</script>

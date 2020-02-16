@@ -10,8 +10,7 @@ namespace WebDemo.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
+            ViewBag.Title = "RESTful API's with ASP.NET MVC";
             return View();
         }
     }
