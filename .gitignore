@@ -6,4 +6,10 @@
 /WebDemo/obj
 /EFDAL/bin
 /EFDAL/obj
+/WebDemo.Tests/bin
+/WebDemo.Tests/obj
+/TestResults
 Database/Database.csproj.user
+EFDAL/EFDAL.csproj.user
+WebDemo/WebDemo.csproj.user
+WebDemo.Tests/WebDemo.Tests.csproj.user
