@@ -34,6 +34,7 @@ namespace WebDemo.Controllers
         [HttpPost]
         public string Post(Customers value)
         {
+            value.CustomerID = Guid.NewGuid().ToString("N").Substring(0, 5);
             bool result = service.AddCustomers(value);
             return JsonConvert.SerializeObject(result);
         }

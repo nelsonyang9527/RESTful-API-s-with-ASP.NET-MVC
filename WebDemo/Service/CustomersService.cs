@@ -17,7 +17,7 @@ namespace WebDemo.Service
         public Customers GetCustomers(string CustomerID)
         {
             IQueryable<Customers> CustomersBase = base.Lookup<Customers>(x => x.CustomerID == CustomerID);
-            return (CustomersBase.Any()) ? CustomersBase.FirstOrDefault() : null;
+            return (CustomersBase.Any()) ? CustomersBase.FirstOrDefault() : new Customers();
         }
 
         /// <summary>
@@ -27,7 +27,6 @@ namespace WebDemo.Service
         /// <returns></returns>
         public bool AddCustomers(Customers createCustomers)
         {
-            createCustomers.CustomerID = Guid.NewGuid().ToString("N").Substring(0, 5);
             return base.Insert<Customers>(createCustomers);
         }
 
