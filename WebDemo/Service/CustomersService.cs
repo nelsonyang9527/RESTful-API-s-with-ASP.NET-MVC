@@ -7,7 +7,7 @@ using EFDAL;
 
 namespace WebDemo.Service
 {
-    public class CustomersService : ServiceBase
+    public class CustomersService : ServiceBase, ICustomersService
     {
         /// <summary>
         /// 取得客戶資料

@@ -12,7 +12,12 @@ namespace WebDemo.Controllers
 {
     public class CustomersController : ApiController
     {
-        CustomersService service = new CustomersService();
+        ICustomersService service;
+
+        public CustomersController()
+        {
+            this.service = new CustomersService();
+        }
 
         /// <summary>
         /// 取得客戶資料

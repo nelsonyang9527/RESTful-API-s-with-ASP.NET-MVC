@@ -170,6 +170,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ICustomersService.cs" />
     <Compile Include="Service\CustomersService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ namespace WebDemo.Tests
     [TestClass]
     public class CustomersControllerTest
     {
-        CustomersService service = new CustomersService();
+        ICustomersService service;
 
         /// <summary>
         /// 主測試程序 CRUD
@@ -16,6 +16,8 @@ namespace WebDemo.Tests
         [TestMethod]
         public void main()
         {
+            this.service = new CustomersService();
+
             Customers data = new Customers();
             data.CustomerID = Guid.NewGuid().ToString("N").Substring(0, 5);
             data.ContactName = "測試人";
